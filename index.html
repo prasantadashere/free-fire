@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#10131c">
+  <title>Free Fire MAX — Live Scoreboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div class="topline"></div>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="DropZone home"><span class="brand-mark">DZ</span><span>FREE FIRE<span class="accent"> MAX</span><small>SEASON 6 · TOURNAMENT CONTROL</small></span></a>
+    <nav><a href="#leaderboard">Leaderboard</a><a href="#teams">Teams</a><a href="#rules">Scoring</a></nav>
+    <button id="adminOpen" class="btn btn-outline">Admin Login <span>↗</span></button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><i class="live-dot"></i> FREE FIRE MAX ARENA <span class="eyebrow-line"></span> LIVE UPDATES</div>
+        <h1>EVERY DROP.<br><span>EVERY POINT.</span></h1>
+        <p>Live BGMI standings, match-by-match results, and the race to the top. One battlefield. One leaderboard.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="#leaderboard">View leaderboard <b>↓</b></a><a class="text-link" href="#teams">Explore teams <span>↗</span></a></div>
+      </div>
+      <div class="hero-graphic" aria-hidden="true">
+        <div class="radar radar-one"></div><div class="radar radar-two"></div><div class="radar-cross"></div>
+        <div class="map-label label-a">BERMUDA / 01</div><div class="map-label label-b">BOOYAH ZONE</div>
+        <div class="map-pin"><span></span></div><div class="map-coord">25°12' N<br>91°44' E</div>
+        <div class="hero-stat"><small>THE OBJECTIVE</small><strong>BOO<br><em>YAH!</em></strong><span>● BOOYAH TRACKING ACTIVE</span></div>
+      </div>
+      <div class="hero-bottom"><span>01 / COMPETE</span><span>02 / SURVIVE</span><span>03 / CONQUER</span><span class="scroll-hint">SCROLL TO DEPLOY ↓</span></div>
+    </section>
+
+    <section class="section leaderboard-section" id="leaderboard">
+      <div class="section-heading"><div><div class="eyebrow">LIVE TOURNAMENT STANDINGS</div><h2>OVERALL <span>STANDINGS</span></h2></div><div class="heading-tools"><span class="status-pill"><i class="live-dot"></i> LIVE BOARD</span><button class="btn btn-small btn-outline" id="refreshBtn">↻ Refresh</button></div></div>
+      <div class="filter-row"><label>EVENT<select id="eventFilter"><option value="">All events</option></select></label><label>GROUP<select id="leaderGroupFilter"><option value="">All groups</option></select></label><span id="lastUpdated" class="muted">Waiting for scoreboard data…</span></div>
+      <div class="table-wrap"><table class="score-table"><thead><tr><th>#</th><th>TEAM</th><th>GROUP</th><th class="numeric">🔥 BOOYAH</th><th class="numeric">MATCHES</th><th class="numeric">PLACE PTS.</th><th class="numeric">FINISHES</th><th class="numeric">TOTAL PTS.</th></tr></thead><tbody id="leaderboardBody"><tr><td colspan="7" class="empty-cell">Connect Supabase to load the scoreboard.</td></tr></tbody></table></div>
+      <div class="table-foot"><span><i class="live-dot"></i> Results update automatically</span><span>Placement points + 1 point per kill</span></div>
+    </section>
+
+    <section class="section" id="teams">
+      <div class="section-heading"><div><div class="eyebrow">REGISTERED SQUADS</div><h2>TEAMS <span>LIST</span></h2></div><div class="heading-tools"><span class="muted" id="teamCount">0 teams registered</span></div></div>
+      <div id="teamsGrid" class="teams-grid"><div class="empty-card">Team roster will appear here once the tournament admin adds teams.</div></div>
+    </section>
+
+    <section class="section match-section" id="matches">
+      <div class="section-heading"><div><div class="eyebrow">MATCH-BY-MATCH SCORECARD</div><h2>MATCH <span>RESULTS</span></h2></div><div class="heading-tools"><select id="matchEventFilter" class="dark-select"><option value="">All events</option></select></div></div>
+      <div id="matchResults" class="match-results"><div class="empty-card">Match results will appear here.</div></div>
+    </section>
+
+    <section class="section rules-section" id="rules">
+      <div class="section-heading"><div><div class="eyebrow">HOW POINTS ARE WON</div><h2>SCORING <span>SYSTEM</span></h2></div><p class="rules-intro">Every elimination counts. Every placement matters.<br>Play smart, survive longer, climb higher.</p></div>
+      <div class="rules-grid"><div class="rules-card rules-feature"><span class="rule-number">01</span><small>BOOYAH!</small><strong>12 <em>PTS</em></strong><p>1st place — BOOYAH finish.</p></div><div class="rules-card"><span class="rule-number">02</span><small>2ND PLACE</small><strong>09 <em>PTS</em></strong><p>Keep pushing. The podium is in reach.</p></div><div class="rules-card"><span class="rule-number">03</span><small>3RD PLACE</small><strong>08 <em>PTS</em></strong><p>Consistency keeps you in contention.</p></div></div><div class="rules-card"><span class="rule-number">04</span><small>EVERY KILL</small><strong>+1 <em>PT</em></strong><p>Each confirmed kill adds one point to the team's score.</p></div></div>
+      <div class="placement-strip"><span>4th <b>7 pts</b></span><span>5th <b>6 pts</b></span><span>6th <b>5 pts</b></span><span>7th <b>4 pts</b></span><span>8th <b>3 pts</b></span><span>9th <b>2 pts</b></span><span>10th <b>1 pt</b></span><span>11th–12th <b>0 pts</b></span></div>
+    </section>
+  </main>
+
+  <footer><a class="brand footer-brand" href="#"><span class="brand-mark">DZ</span><span>FREE FIRE<span class="accent"> MAX</span><small>SEASON 6 · TOURNAMENT CONTROL</small></span></a><span>BUILT FOR THE BATTLE. POWERED BY THE COMMUNITY.</span><span>© <span id="year"></span> DROPZONE</span></footer>
+
+  <div class="modal-backdrop" id="adminModal" aria-hidden="true">
+    <section class="admin-modal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+      <button class="modal-close" id="closeAdmin" aria-label="Close">×</button>
+      <div class="eyebrow">RESTRICTED ACCESS</div><h2 id="adminTitle">ADMIN <span>CONSOLE</span></h2>
+      <p class="muted">Sign in with your authorised Supabase administrator account.</p>
+      <form id="loginForm" class="stack-form"><label>Email<input type="email" id="loginEmail" required autocomplete="username" placeholder="admin@example.com"></label><label>Password<input type="password" id="loginPassword" required autocomplete="current-password" placeholder="Your password"></label><button class="btn btn-primary full-width" type="submit">Sign in <span>→</span></button><p id="loginMessage" class="form-message"></p></form>
+    </section>
+  </div>
+
+  <div class="admin-shell" id="adminShell" aria-hidden="true">
+    <div class="admin-top"><div><div class="eyebrow">DROPZONE / CONTROL ROOM</div><h2>ADMIN <span>CONSOLE</span></h2></div><div class="admin-top-actions"><span id="adminIdentity" class="muted"></span><button id="logoutBtn" class="btn btn-outline btn-small">Sign out</button><button id="closeConsole" class="btn btn-primary btn-small">Close ×</button></div></div>
+    <div class="admin-tabs"><button class="active" data-tab="teamsTab">Teams & Groups</button><button data-tab="eventsTab">Events & Matches</button><button data-tab="resultsTab">Enter Results</button></div>
+    <div class="admin-content">
+      <section class="admin-tab active" id="teamsTab"><div class="admin-panel"><h3>CREATE A GROUP</h3><form id="groupForm" class="inline-form"><label>Group name (e.g. A)<input id="groupName" required maxlength="20" placeholder="Group A"></label><button class="btn btn-primary" type="submit">Create group</button></form></div><div class="admin-panel"><h3>ADD / EDIT TEAM</h3><form id="teamForm" class="form-grid"><input type="hidden" id="teamId"><label>Team name<input id="teamName" required maxlength="80" placeholder="Enter team name"></label><label>Group<select id="teamGroup" required><option value="">Select group</option></select></label><label>Contact person<input id="contactPerson" maxlength="80" placeholder="Contact person's name"></label><label>Contact details<input id="contactDetails" maxlength="120" placeholder="Phone / email — admins only"></label><div class="form-actions"><button class="btn btn-primary" type="submit" id="saveTeamBtn">Save team</button><button class="btn btn-outline" type="button" id="cancelTeamEdit">Clear</button></div></form><p class="muted tiny">Contact details are stored separately and protected by admin-only database policies.</p></div><div class="admin-panel"><h3>REGISTERED TEAMS</h3><div id="adminTeamsList" class="admin-list"></div></div></section>
+      <section class="admin-tab" id="eventsTab"><div class="admin-panel"><h3>CREATE EVENT</h3><form id="eventForm" class="form-grid"><label>Event name<input id="eventName" required maxlength="100" placeholder="Online Qualifiers"></label><label>Event stage<select id="eventStage"><option>Online Qualifiers</option><option>Quarter Finals</option><option>Semi Finals</option><option>Grand Finals</option><option>Custom</option></select></label><label class="full-span">Description (optional)<input id="eventDescription" maxlength="250" placeholder="Event notes"></label><div class="form-actions"><button class="btn btn-primary" type="submit">Create event</button></div></form></div><div class="admin-panel"><h3>ADD MATCH TO EVENT</h3><form id="matchForm" class="form-grid"><label>Event<select id="matchEvent" required><option value="">Select event</option></select></label><label>Match number<input id="matchNumber" type="number" min="1" value="1" required></label><label>Map name<input id="mapName" required maxlength="80" placeholder="Bermuda / Purgatory / Kalahari"></label><label>Match label (optional)<input id="matchLabel" maxlength="80" placeholder="Match 1"></label><div class="form-actions"><button class="btn btn-primary" type="submit">Create match</button></div></form></div><div class="admin-panel"><h3>EVENTS & MATCHES</h3><div id="adminEventsList" class="admin-list"></div></div></section>
+      <section class="admin-tab" id="resultsTab"><div class="admin-panel"><h3>ENTER MATCH RESULTS</h3><p class="muted">Select a match, then add each team's placement and kill count. Saving updates event totals and the public board.</p><form id="resultForm" class="form-grid"><label>Event<select id="resultEvent" required><option value="">Select event</option></select></label><label>Match<select id="resultMatch" required><option value="">Select match</option></select></label><label>Team group (filter)<select id="resultGroup"><option value="">All groups</option></select></label><label>Team<select id="resultTeam" required><option value="">Select team</option></select></label><label>Placement<select id="resultPlacement" required><option value="1">1st — BOOYAH (12 pts)</option><option value="2">2nd (9 pts)</option><option value="3">3rd (8 pts)</option><option value="4">4th (7 pts)</option><option value="5">5th (6 pts)</option><option value="6">6th (5 pts)</option><option value="7">7th (4 pts)</option><option value="8">8th (3 pts)</option><option value="9">9th (2 pts)</option><option value="10">10th (1 pt)</option><option value="11">11th (0 pts)</option><option value="12">12th (0 pts)</option></select></label><label>Kills<input id="resultKills" type="number" min="0" max="100" value="0" required></label><div class="score-preview full-span">PLACEMENT <strong id="placementPreview">10</strong> <span>+</span> KILLS <strong id="killPreview">0</strong> <span>=</span> TOTAL <strong id="totalPreview">10 PTS</strong></div><div class="form-actions"><button class="btn btn-primary" type="submit">Save result</button><button class="btn btn-outline" type="button" id="clearResult">Clear form</button></div></form></div><div class="admin-panel"><h3>SAVED RESULTS FOR SELECTED MATCH</h3><div id="adminResultsList" class="admin-list"></div></div></section>
+    </div>
+    <div id="adminToast" class="toast" role="status"></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
